@@ -11,6 +11,7 @@ export type TaskGanttProps = {
   ganttHeight: number;
   scrollY: number;
   scrollX: number;
+  barTaskIndexMax: number;
 };
 export const TaskGantt: React.FC<TaskGanttProps> = ({
   gridProps,
@@ -19,11 +20,12 @@ export const TaskGantt: React.FC<TaskGanttProps> = ({
   ganttHeight,
   scrollY,
   scrollX,
+  barTaskIndexMax
 }) => {
   const ganttSVGRef = useRef<SVGSVGElement>(null);
   const horizontalContainerRef = useRef<HTMLDivElement>(null);
   const verticalGanttContainerRef = useRef<HTMLDivElement>(null);
-  const newBarProps = { ...barProps, svg: ganttSVGRef };
+  const newBarProps = { ...barProps, svg: ganttSVGRef, viewMode: calendarProps.viewMode, };
 
   useEffect(() => {
     if (horizontalContainerRef.current) {
@@ -63,7 +65,8 @@ export const TaskGantt: React.FC<TaskGanttProps> = ({
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={gridProps.svgWidth}
-          height={barProps.rowHeight * barProps.tasks.length}
+          // in horizontal scenario use introduced barTaskIndexMax which tracks how many unique rows there are in horizontal mode when tasks could be on the same line
+          height={!gridProps.isHorizontalDisplay ? barProps.rowHeight * barProps.tasks.length : barProps.rowHeight * barTaskIndexMax}
           fontFamily={barProps.fontFamily}
           ref={ganttSVGRef}
         >

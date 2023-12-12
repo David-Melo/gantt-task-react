@@ -65,6 +65,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   onDelete,
   onSelect,
   onExpanderClick,
+  isHorizontalDisplay
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const taskListRef = useRef<HTMLDivElement>(null);
@@ -139,7 +140,8 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
         projectBackgroundColor,
         projectBackgroundSelectedColor,
         milestoneBackgroundColor,
-        milestoneBackgroundSelectedColor
+        milestoneBackgroundSelectedColor,
+        isHorizontalDisplay
       )
     );
   }, [
@@ -449,6 +451,19 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     TaskListHeader,
     TaskListTable,
   };
+  // Ivo Sturm: Added barTaskUniqueIndices to make sure GanttHeight is adjusted when multiple tasks are on same line/index in horizontal mode
+  let barTaskUniqueIndices: number[] = [];
+  barTasks.forEach(barTask=>{
+    let alreadyInArray = false;
+    barTaskUniqueIndices.forEach(barTaskUnique=>{
+      if (barTaskUnique === barTask.index){
+          alreadyInArray = true;
+      }
+    })
+    if (!alreadyInArray){
+      barTaskUniqueIndices.push(barTask.index);
+    }
+  })
   return (
     <div>
       <div
@@ -465,6 +480,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
           ganttHeight={ganttHeight}
           scrollY={scrollY}
           scrollX={scrollX}
+          barTaskIndexMax={barTaskUniqueIndices.length}
         />
         {ganttEvent.changedTask && (
           <Tooltip

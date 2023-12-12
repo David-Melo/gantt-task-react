@@ -29,6 +29,8 @@ export type TaskGanttContentProps = {
   rtl: boolean;
   setGanttEvent: (value: GanttEvent) => void;
   setFailedTask: (value: BarTask | null) => void;
+  isHorizontalDisplay: boolean;
+  viewMode: ViewMode;
   setSelectedTask: (taskId: string) => void;
 } & EventOption;
 
@@ -47,6 +49,8 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
   fontFamily,
   fontSize,
   rtl,
+  isHorizontalDisplay,
+  viewMode,
   setGanttEvent,
   setFailedTask,
   setSelectedTask,
@@ -293,6 +297,8 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
               key={task.id}
               isSelected={!!selectedTask && task.id === selectedTask.id}
               rtl={rtl}
+              isHorizontalDisplay={isHorizontalDisplay}
+              viewMode={viewMode}
             />
           );
         })}
