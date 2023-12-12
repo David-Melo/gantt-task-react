@@ -24,7 +24,7 @@ import { HorizontalScroll } from "../other/horizontal-scroll";
 import { removeHiddenTasks, sortTasks } from "../../helpers/other-helper";
 import styles from "./gantt.module.css";
 
-export const Gantt: React.FunctionComponent<GanttProps> = ({
+export const Gantt: React.FC<GanttProps> = ({
   tasks,
   headerHeight = 50,
   columnWidth = 60,
@@ -397,6 +397,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     dates: dateSetup.dates,
     todayColor,
     rtl,
+    isHorizontalDisplay
   };
   const calendarProps: CalendarProps = {
     dateSetup,
@@ -418,6 +419,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     columnWidth,
     arrowColor,
     timeStep,
+    viewMode,
     fontFamily,
     fontSize,
     arrowIndent,
@@ -431,6 +433,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     onDoubleClick,
     onClick,
     onDelete,
+    isHorizontalDisplay
   };
 
   const tableProps: TaskListProps = {
@@ -449,7 +452,8 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     setSelectedTask: handleSelectedTask,
     onExpanderClick: handleExpanderClick,
     TaskListHeader,
-    TaskListTable,
+    isHorizontalDisplay,
+    TaskListTable
   };
   // Ivo Sturm: Added barTaskUniqueIndices to make sure GanttHeight is adjusted when multiple tasks are on same line/index in horizontal mode
   let barTaskUniqueIndices: number[] = [];

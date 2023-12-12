@@ -33,6 +33,7 @@ export type TaskListProps = {
     selectedTaskId: string;
     setSelectedTask: (taskId: string) => void;
     onExpanderClick: (task: Task) => void;
+    isHorizontalDisplay: boolean;
   }>;
   isHorizontalDisplay: boolean;
 };

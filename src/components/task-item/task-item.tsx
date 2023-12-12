@@ -6,6 +6,7 @@ import { BarSmall } from "./bar/bar-small";
 import { Milestone } from "./milestone/milestone";
 import { Project } from "./project/project";
 import style from "./task-list.module.css";
+import { ViewMode } from "../../types/public-types";
 
 export type TaskItemProps = {
   task: BarTask;
@@ -40,7 +41,7 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
     ...props,
   };
   const textRef = useRef<SVGTextElement>(null);
-  const displayNameShortenedRef = useRef(null);
+  const displayNameShortenedRef = useRef<string|null>(null);
   const [taskItem, setTaskItem] = useState<JSX.Element>(<div />);
   const [isTextInside, setIsTextInside] = useState(true);
   const displayNameShortened = ''
@@ -75,7 +76,7 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
       if (Math.floor(deltaWidth / 6) >=1){
         // remove 3 extra characters, since we will add three dots to let user know name is longer than displayed
         const charsToBeRemoved = Math.floor(deltaWidth / 6) + 3;
-        const displayNameShortened = task.displayName.substring(0, task.displayName.length - charsToBeRemoved); 
+        const displayNameShortened = task.name.substring(0, task.name.length - charsToBeRemoved); 
        // Check 3: if corrected text is smaller than 6 don't show text inside either...
         if (displayNameShortened.length > 5){
           displayNameShortenedRef.current = displayNameShortened;

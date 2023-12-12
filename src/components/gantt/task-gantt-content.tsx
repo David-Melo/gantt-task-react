@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { EventOption } from "../../types/public-types";
+import { EventOption, ViewMode } from "../../types/public-types";
 import { BarTask } from "../../types/bar-task";
 import { Arrow } from "../other/arrow";
 import { handleTaskBySVGMouseEvent } from "../../helpers/bar-helper";

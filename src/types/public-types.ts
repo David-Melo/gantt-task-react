@@ -138,6 +138,7 @@ export interface StylingOption {
      */
     setSelectedTask: (taskId: string) => void;
     onExpanderClick: (task: Task) => void;
+    isHorizontalDisplay: boolean;
   }>;
 }
 
